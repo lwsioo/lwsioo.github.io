@@ -1,44 +1,439 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alessio Bragetti | Portfolio</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/scrollreveal"></script>
+
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #f0f0f0; background: #0d1117; margin: 0; padding: 0; }
-        .container { max-width: 800px; margin: auto; padding: 2rem; }
-        header { border-bottom: 1px solid #30363d; padding-bottom: 2rem; margin-bottom: 2rem; }
-        h1 { color: #58a6ff; }
-        .project-card { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 1.5rem; margin-bottom: 1rem; }
-        .tech-stack span { background: #1f6feb; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; margin-right: 5px; }
-        a { color: #58a6ff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+      :root {
+        --pastel-purple: #c3a6ff;
+        --bg-color: #0b0e14;
+        --card-bg: #161b22;
+        --text-main: #e2e8f0;
+      }
+
+      [data-bs-theme="light"] {
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-main: #1a1a1a;
+        --pastel-purple: #8a5cf5;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        transition: background-color 0.3s, color 0.3s;
+        cursor: none;
+        overflow-x: hidden;
+      }
+
+      /* Custom Cursor */
+      #cursor {
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--pastel-purple);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        background: rgba(195, 166, 255, 0.15);
+        transition: transform 0.1s ease-out;
+      }
+
+      .text-pastel {
+        color: var(--pastel-purple);
+      }
+      .btn-purple {
+        background-color: var(--pastel-purple);
+        color: #0b0e14;
+        font-weight: 700;
+        border: none;
+        transition: 0.3s;
+      }
+      .btn-purple:hover {
+        background-color: #b08eff;
+        transform: scale(1.05);
+        color: #000;
+      }
+
+      /* Navbar */
+      .navbar {
+        backdrop-filter: blur(10px);
+        background: rgba(11, 14, 20, 0.8);
+      }
+      #theme-toggle {
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: var(--pastel-purple);
+      }
+
+      /* Hero */
+      .hero {
+        padding: 140px 0 80px;
+      }
+      .profile-img-container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 30px;
+        border-radius: 50%;
+        border: 3px solid var(--pastel-purple);
+        overflow: hidden;
+        background: var(--card-bg);
+      }
+
+      /* Cards */
+      .project-card,
+      .skill-box {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        transition: 0.4s;
+      }
+      .project-card:hover {
+        border-color: var(--pastel-purple);
+        transform: translateY(-10px);
+      }
+
+      .github-stats img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        margin-bottom: 15px;
+      }
+      .skill-icon {
+        font-size: 2rem;
+        color: var(--pastel-purple);
+        margin-bottom: 10px;
+      }
+      .contact-option:hover {
+        background: rgba(195, 166, 255, 0.2) !important;
+        color: var(--pastel-purple) !important;
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Alessio Bragetti</h1>
-            <p>Computer Science Student | Trilingual (IT/EN/ES)</p>
-            <p>📍 Italy | <a href="mailto:alessio.bragetti@protonmail.com">Email</a> | <a href="https://github.com/lwsioo">GitHub</a></p>
-        </header>
+  </head>
+  <body>
+    <div id="cursor"></div>
 
-        <section>
-            <h2>Featured Projects</h2>
-            <div class="project-card">
-                <h3>Stranger Things C-RPG</h3>
-                <p>A terminal-based RPG developed in C focusing on memory management and game logic.</p>
-                <div class="tech-stack">
-                    <span>C</span> <span>Game Logic</span> <span>Memory Management</span>
-                </div>
-                <p><a href="https://github.com/lwsioo/StrangerThingsRPG">View Repository →</a></p>
-            </div>
-        </section>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-pastel" href="#">AB</a>
+        <div class="d-flex align-items-center">
+          <div id="theme-toggle" class="me-4">
+            <i class="fas fa-moon" id="theme-icon"></i>
+          </div>
+          <div class="navbar-nav d-none d-md-flex">
+            <a class="nav-link px-3" href="#projects">Projects</a>
+            <a class="nav-link px-3" href="#skills">Skills</a>
+            <a class="nav-link px-3" href="#about">Education</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-        <section>
-            <h2>Skills</h2>
-            <p>C, Java, Python, JavaScript, Kotlin, HTML, CSS, SQL.</p>
-        </section>
+    <section class="hero text-center container">
+      <div class="reveal-hero">
+        <div class="profile-img-container">
+          <img
+            src="https://via.placeholder.com/150"
+            alt="Alessio Bragetti"
+            class="img-fluid"
+            style="object-fit: cover; width: 100%; height: 100%"
+          />
+        </div>
+        <h1 class="display-2 fw-bold mb-3">Alessio Bragetti</h1>
+        <p class="fs-4 text-pastel mb-4">CS Student @ UniPG | Trilingual Dev</p>
+        <div class="d-flex justify-content-center gap-3">
+          <button
+            class="btn btn-purple btn-lg px-4"
+            data-bs-toggle="modal"
+            data-bs-target="#contactModal"
+          >
+            Get in Touch
+          </button>
+          <a href="#" class="btn btn-outline-secondary btn-lg px-4"
+            >Download CV <i class="fas fa-download ms-2"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container py-5">
+      <h2 class="mb-5 fw-bold reveal-left">
+        <span class="text-pastel">/</span> GitHub Activity
+      </h2>
+      <div class="row justify-content-center reveal-bottom">
+        <div class="col-lg-10 github-stats text-center">
+          <img
+            src="https://github-readme-streak-stats.herokuapp.com/?user=lwsioo&theme=tokyonight&hide_border=true"
+            alt="GitHub Streak"
+            class="mb-3"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container py-5">
+      <h2 class="mb-5 fw-bold reveal-left">
+        <span class="text-pastel">/</span> Featured Projects
+      </h2>
+      <div class="row g-4">
+        <div class="col-md-6 reveal-card">
+          <div class="card project-card h-100 p-4">
+            <h3>Stranger Things C-RPG</h3>
+            <p class="text-secondary">
+              Low-level terminal RPG. Deep dive into C pointers, custom structs,
+              and game state persistence.
+            </p>
+            <a
+              href="https://github.com/lwsioo/StrangerThingsRPG"
+              target="_blank"
+              class="text-pastel text-decoration-none mt-auto"
+              >Source Code <i class="fas fa-external-link-alt ms-1"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-md-6 reveal-card">
+          <div class="card project-card h-100 p-4">
+            <h3>Multi-Client Chat System</h3>
+            <p class="text-secondary">
+              Real-time messaging platform using socket programming and
+              multi-threading for concurrent user handling.
+            </p>
+            <a
+              href="https://github.com/lwsioo/chatClient"
+              target="_blank"
+              class="text-pastel text-decoration-none mt-auto"
+              >Source Code <i class="fas fa-external-link-alt ms-1"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-md-6 reveal-card">
+          <div class="card project-card h-100 p-4">
+            <h3>Website for MurettoPG</h3>
+            <p class="text-secondary">
+              A freestyle rap hub featuring an automated tournament bracket generator and a dynamic word/topic engine for training sessions.
+            </p>
+            <a
+              href="https://github.com/lwsioo/murettoPG"
+              target="_blank"
+              class="text-pastel text-decoration-none mt-auto"
+              >Source Code <i class="fas fa-external-link-alt ms-1"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-md-6 reveal-card">
+          <div class="card project-card h-100 p-4">
+            <h3>Arpa WebSite</h3>
+            <p class="text-secondary">
+              Developed for ITTS A. Volta in collaboration with ARPA Umbria. A specialized tool for cataloging and researching flora and fauna across the Umbria region.
+            </p>
+            <a
+              href="https://github.com/lwsioo/progettoArpa"
+              target="_blank"
+              class="text-pastel text-decoration-none mt-auto"
+              >Source Code <i class="fas fa-external-link-alt ms-1"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-md-6 reveal-card">
+          <div class="card project-card h-100 p-4">
+            <h3>Casino Logic Engine</h3>
+            <p class="text-secondary">
+              Collection of probability-based games in C, exploring algorithmic
+              randomization and balance logic.
+            </p>
+            <a
+              href="https://github.com/lwsioo/giochiAzzardo"
+              target="_blank"
+              class="text-pastel text-decoration-none mt-auto"
+              >Source Code <i class="fas fa-external-link-alt ms-1"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-md-6 reveal-card">
+          <div class="card project-card h-100 p-4">
+            <h3>Academic Research</h3>
+            <p class="text-secondary">
+              Developing algorithms and data structure implementations at
+              University of Perugia.
+            </p>
+            <span class="text-muted mt-auto">Ongoing Education</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="container py-5">
+      <h2 class="text-center fw-bold mb-5 reveal-bottom text-pastel">
+        Technical Toolkit
+      </h2>
+      <div class="row g-3 text-center">
+        <div class="col-6 col-md-3 reveal-skill">
+          <div class="skill-box p-3">
+            <i class="fas fa-code skill-icon"></i>
+            <p>C / Java / PHP</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 reveal-skill">
+          <div class="skill-box p-3">
+            <i class="fab fa-python skill-icon"></i>
+            <p>Python / Kotlin</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 reveal-skill">
+          <div class="skill-box p-3">
+            <i class="fas fa-database skill-icon"></i>
+            <p>SQL & DBs</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 reveal-skill">
+          <div class="skill-box p-3">
+            <i class="fab fa-js skill-icon"></i>
+            <p>JS / Bootstrap / Tailwind</p>
+          </div>
+        </div>
+        <div class="col-12 reveal-skill">
+          <div class="skill-box p-3">
+            <i class="fas fa-robot skill-icon"></i>
+            <p>AI Power User (LLMs, Prompt Engineering)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container py-5 border-top border-secondary">
+      <div class="row g-5">
+        <div class="col-md-6 reveal-left">
+          <h2 class="fw-bold mb-4 text-pastel">Education</h2>
+          <h5 class="text-white">BSc in Computer Science and Mathematics</h5>
+          <p class="text-secondary">University of Perugia (UniPG)</p>
+          <p class="small text-muted">
+            Core focus on Algorithms, Software Engineering, and Logic.
+          </p>
+        </div>
+        <div class="col-md-6 reveal-right">
+          <h2 class="fw-bold mb-4 text-pastel">Languages</h2>
+          <div
+            class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-2"
+          >
+            <span>🇮🇹 Italian</span>
+            <span class="text-pastel fw-bold">Native</span>
+          </div>
+          <div
+            class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-2"
+          >
+            <span>🇬🇧 English</span>
+            <span class="text-pastel fw-bold">C1 Professional</span>
+          </div>
+          <div
+            class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-2"
+          >
+            <span>🇪🇸 Spanish</span>
+            <span class="text-pastel fw-bold">B2 Professional</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div
+          class="modal-content p-4 text-center"
+          style="
+            background: var(--card-bg);
+            border: 1px solid var(--pastel-purple);
+            border-radius: 20px;
+          "
+        >
+          <h3 class="text-pastel mb-4">Let's Connect</h3>
+          <a
+            href="mailto:alessio.bragetti@protonmail.com"
+            class="contact-option border p-3 d-block mb-2 text-decoration-none text-white rounded-3"
+            >Email Me</a
+          >
+          <a
+            href="https://t.me/MrErmita"
+            target="_blank"
+            class="contact-option border p-3 d-block text-decoration-none text-white rounded-3"
+            >Telegram</a
+          >
+        </div>
+      </div>
     </div>
-</body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Cursor
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.transform = `translate3d(${e.clientX - 11}px, ${
+          e.clientY - 11
+        }px, 0)`;
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const html = document.documentElement;
+      const themeIcon = document.getElementById("theme-icon");
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = html.getAttribute("data-bs-theme");
+        if (currentTheme === "dark") {
+          html.setAttribute("data-bs-theme", "light");
+          themeIcon.className = "fas fa-sun";
+        } else {
+          html.setAttribute("data-bs-theme", "dark");
+          themeIcon.className = "fas fa-moon";
+        }
+      });
+
+      // ScrollReveal
+      ScrollReveal().reveal(".reveal-hero", {
+        delay: 200,
+        origin: "top",
+        distance: "50px",
+      });
+      ScrollReveal().reveal(".reveal-left", {
+        delay: 300,
+        origin: "left",
+        distance: "50px",
+      });
+      ScrollReveal().reveal(".reveal-right", {
+        delay: 300,
+        origin: "right",
+        distance: "50px",
+      });
+      ScrollReveal().reveal(".reveal-bottom", {
+        delay: 400,
+        origin: "bottom",
+        distance: "50px",
+      });
+      ScrollReveal().reveal(".reveal-card", {
+        delay: 400,
+        interval: 200,
+        origin: "bottom",
+        distance: "30px",
+      });
+      ScrollReveal().reveal(".reveal-skill", {
+        delay: 200,
+        interval: 100,
+        scale: 0.9,
+      });
+    </script>
+  </body>
 </html>
