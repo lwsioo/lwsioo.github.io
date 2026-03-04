@@ -444,7 +444,7 @@ a {
     color: var(--text-secondary);
     max-width: 600px;
     margin-bottom: 2.5rem;
-    font-weight: 300;
+    font-weight: 600;
 }
 
 .hero-actions {
